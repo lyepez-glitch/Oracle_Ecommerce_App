@@ -1,0 +1,616 @@
+            #root {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            html {
+                background-color: lightblue !important;
+            }
+            
+            .logo {
+                height: 6em;
+                padding: 1.5em;
+                will-change: filter;
+                transition: filter 300ms;
+            }
+            
+            .logo:hover {
+                filter: drop-shadow(0 0 2em #646cffaa);
+            }
+            
+            .logo.react:hover {
+                filter: drop-shadow(0 0 2em #61dafbaa);
+            }
+            
+            @keyframes logo-spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            
+            @media (prefers-reduced-motion: no-preference) {
+                a:nth-of-type(2) .logo {
+                    animation: logo-spin infinite 20s linear;
+                }
+            }
+            
+            .card {
+                padding: 2em;
+            }
+            
+            .read-the-docs {
+                color: #888;
+            }
+            
+            body {
+                background-color: lightblue;
+            }
+            
+            form {
+                background-color: orange;
+                padding: 20px 20px;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                transform: scale(.7);
+                align-items: center;
+                flex-direction: column;
+            }
+            
+            .role {
+                background-color: lightgreen;
+                padding: 20px 20px;
+                margin-bottom: 10px;
+                /* width: 200px; */
+                width: 100%;
+                /* transform: scale(.7); */
+                flex: 1 1 200px;
+                /* Allow flexibility with a base width */
+                min-width: 150px;
+                max-width: 200px;
+                /* Minimum width to maintain readability */
+            }
+            
+            .rolesContainer {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+                /* margin-left: 80px; */
+                padding: 20px;
+            }
+            
+            form {
+                display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                gap: 8px;
+                width: 300px;
+                margin-left: 3vw;
+                border: 2px solid black;
+                border-radius: 10px;
+                transform: scale(.7);
+            }
+            
+            .salary {
+                margin-left: -30px;
+            }
+            
+            @media (max-width: 768px) {
+                /* Adjust the breakpoint as necessary */
+                .salary {
+                    margin-left: 0;
+                    /* Remove negative margin for mobile */
+                    padding-left: 15px;
+                    /* Add padding if needed */
+                    width: 100%;
+                    /* Ensure it takes full width */
+                }
+            }
+            
+            .rolesHeader {
+                margin-top: 70px;
+                margin-left: 150px;
+            }
+            
+            .addRole {
+                margin-left: 150px;
+            }
+            
+            .empForm {
+                padding: 20px;
+                /* height: 200px; */
+                /* margin-left: 400px; */
+                transform: scale(.7);
+                /* height: 500px; */
+                height: auto;
+                max-width: 300px;
+            }
+            
+            .deptHeader {
+                margin-left: 150px;
+            }
+            
+            .deptForm {
+                height: 500px;
+                padding-right: 50px;
+            }
+            
+            .noAudits {
+                margin-left: 150px;
+                margin-top: 20px;
+            }
+            
+            .dept {
+                background-color: lightpink;
+                border: 2px solid black;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                padding: 20px 20px;
+                /* margin-left: 300px; */
+                width: 200px;
+                transform: scale(.7);
+                flex: 1 1 200px;
+                min-width: 150px;
+            }
+            
+            .dept p {
+                width: 200px;
+            }
+            
+            .deptsContainer {
+                display: flex;
+                gap: 8px;
+                justify-content: center;
+                /* margin-left: -300px; */
+                width: 100%;
+                flex-wrap: wrap;
+                padding: 20px;
+            }
+            
+            .editDept {
+                background-color: orange;
+                border: 2px solid black;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                padding: 20px 20px;
+                width: 400px;
+                height: 400px;
+                transform: scale(.7);
+                margin-left: -20px;
+                /* height: 300px; */
+            }
+            
+            .emp {
+                background-color: gold;
+                border: 2px solid black;
+                border-radius: 15px;
+                width: 440px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 20px;
+                /* height: 550px; */
+                transform: scale(.5);
+            }
+            
+            .empsContainer {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+                justify-content: flex-start;
+                /* margin-left: 40%; */
+                width: 100%;
+                min-height: 150px;
+            }
+            
+            .addEmp {
+                margin-top: 20px;
+            }
+            
+            .reviewForm {
+                margin-left: 30px;
+                padding-bottom: 30px;
+                transform: scale(.7);
+                margin-bottom: 40px !important;
+                height: 400px;
+                padding-right: 40px;
+            }
+            
+            .reviewContainer {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                /* Space between reviews */
+                flex-grow: 1;
+                margin-top: 70px;
+                /* Allow reviews to grow and fill space */
+                padding: 50px !important;
+                justify-content: center;
+                transform: scale(.7);
+                margin-left: -50px;
+            }
+            
+            .reviewSubmit {
+                height: 30px;
+                width: 80px;
+                font-size: 12px;
+            }
+            
+            .promoteForm {
+                margin-left: 25px;
+                margin-top: 20px;
+                transform: scale(.7);
+                height: 500px;
+            }
+            
+            .auditsContainer {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+                /* margin-left: 50px; */
+                width: 80%;
+                padding: 20px;
+            }
+            
+            .audit {
+                background-color: lightyellow;
+                width: 200px;
+                /* margin-left: 250px; */
+                border: 2px solid black;
+                border-radius: 12px;
+                margin-bottom: 10px;
+                padding: 20px 20px;
+                ;
+                flex: 1 1 200px;
+                /* Allow flexibility with a base width */
+                min-width: 150px;
+                /* Minimum width to maintain readability */
+            }
+            
+            .audit p {
+                width: 200px;
+            }
+            
+            body {
+                /* margin: 0; */
+                display: flex;
+                place-items: center;
+                min-width: 320px;
+                /* min-height: 100vh; */
+                justify-content: center;
+                align-items: center;
+                /* height: 100vh; */
+                /* background-color: #f0f0f0; */
+            }
+            
+            #root div {
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            h1 {
+                text-align: center;
+            }
+            
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 120px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            
+            button:hover {
+                background-color: #218838;
+            }
+            
+            @media (max-width: 600px) {
+                body {
+                    padding: 0 20px;
+                }
+                #root {
+                    padding: 1rem;
+                }
+                #root div {
+                    padding: 10px;
+                }
+                form {
+                    width: 90%;
+                    /* Full width for form */
+                    transform: scale(1);
+                    /* Reset scaling */
+                }
+                .role,
+                .dept,
+                .audit {
+                    width: 100%;
+                    /* Make inputs full width */
+                }
+            }
+            
+            .employeesCont {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* height: 100%; */
+                max-width: 300px;
+                /* Maintain max width */
+                height: auto;
+                /* Adjust height */
+                /* background-color: #f0f0f0; */
+            }
+            /* Container for Employees */
+            
+            .employeesCont {
+                position: fixed;
+                /* Keeps it fixed in the viewport */
+                left: 0;
+                /* Aligns it to the left */
+                top: 0;
+                /* Aligns it to the top */
+                width: 300px;
+                /* Adjust width as necessary */
+                height: 100vh;
+                /* Full height of the viewport */
+                /* background-color: #f0f0f0; */
+                overflow-y: auto;
+                /* Enables scrolling if the content overflows */
+                padding: 20px;
+                /* Optional padding */
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                background-color: lightgreen !important;
+                /* Optional shadow for depth */
+            }
+            /* Employee form style */
+            
+            .empForm {
+                margin-bottom: 20px;
+                /* Space below the form */
+            }
+            
+            .editEmpForm {
+                /* padding: 20px 20px;
+                height: 400px;
+                width: 600px;
+                transform: scale(.7); */
+                margin-bottom: 20px;
+                height: 500px;
+            }
+            /* Employees container within the employees section */
+            
+            .empsContainer {
+                display: flex;
+                flex-direction: column;
+                /* Stack employees vertically */
+                gap: 10px;
+                background-color: lightgreen !important;
+                /* Space between employee items */
+            }
+            
+            button {
+                width: 100px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                margin-left: 10px;
+                display: block;
+            }
+            
+            .auditsContainer {
+                /* position: fixed; */
+                right: 0;
+                top: 0;
+                width: 100%;
+                max-width: 300px;
+                height: 100%;
+                /* background-color: #f0f0f0; */
+                overflow-y: auto;
+                /* Enable vertical scrolling */
+                overflow-x: hidden;
+                /* Hide horizontal scrolling if necessary */
+                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+                /* Optional: Add some shadow for better visibility */
+            }
+            
+            .auditContainer {
+                position: fixed;
+                /* Keeps the entire section fixed */
+                right: 0;
+                top: 0;
+                /* Start from the top */
+                width: 40%;
+                height: 100%;
+                /* Take full height */
+                /* background-color: #f0f0f0; */
+                overflow-y: auto;
+                /* Allow scrolling if content overflows */
+                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+                /* Optional shadow for visibility */
+                padding: 20px;
+                background-color: orange !important;
+                /* Add some padding */
+            }
+            
+            .auditsContainer {
+                margin-top: 100px;
+                padding-bottom: 20px;
+                max-height: calc(100% - 40px);
+                background-color: orange !important;
+                /* Adjust based on other fixed elements */
+                /* Add space between header and audits */
+            }
+            
+            .departmentsContainer {
+                /* position: absolute; */
+                /* Positioning it at the bottom */
+                /* bottom: 0; */
+                /* top: 0; */
+                /* Align to bottom */
+                background-color: #e0e0e0;
+                /* Change background color for visibility */
+                padding: 20px !important;
+                transform: scale(.7);
+                margin-top: 100px;
+                margin-left: -60px;
+                /* position: absolute;
+    /* Fixes it to the bottom of the parent */
+                /* Aligns it to the bottom */
+                background-color: red;
+                padding-bottom: 200px !important;
+            }
+            
+            .deptsContainer {
+                display: flex;
+                flex-direction: column;
+                /* Stack employees vertically */
+                gap: 10px;
+                background-color: red !important;
+            }
+            
+            .rolesCont {
+                /* position: absolute;
+    bottom: 0; */
+                background-color: pink !important;
+                padding-bottom: 100px;
+                margin-left: -20px;
+                margin-top: -70px !important;
+            }
+            
+            .rolesContainer {
+                display: flex;
+                flex-direction: column;
+                /* Stack employees vertically */
+                gap: 10px;
+                /* Space between employee items */
+                background-color: pink !important;
+                padding-bottom: 100px;
+                margin-left: -20px;
+            }
+            
+            @media (max-width: 768px) {
+                .employeesCont,
+                .auditContainer,
+                .auditsContainer {
+                    position: static;
+                    /* Remove fixed positioning on small screens */
+                    width: 100%;
+                    /* Full width */
+                    height: auto;
+                    /* Adjust height */
+                    padding: 10px;
+                    /* Less padding */
+                    box-shadow: none;
+                    /* Remove shadows for mobile */
+                }
+            }
+            
+            .deptForm {
+                margin-bottom: 180px;
+                ;
+            }
+            
+            #innerRoot {
+                top: 0;
+                position: absolute;
+                /* margin-right: 100px; */
+                margin-left: -200px;
+                /* width: 100% !important; */
+                /* width: 100vw; */
+                /* background-color: #f0f0f0 !important; */
+                background-color: red !important;
+            }
+            
+            .review {
+                background-color: yellow !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                width: 300px !important;
+                height: 300px !important;
+                padding-top: 100px !important;
+                padding-bottom: 100px !important;
+            }
+            
+            .review div {
+                width: 50% !important;
+                margin-left: 20%;
+                margin-top: 8px;
+            }
+            
+            .review button {
+                margin-left: 37%;
+            }
+            
+            button {
+                color: white !important;
+            }
+            
+            .empsContainer h2 {
+                margin-left: 10%;
+                margin-top: 200px;
+                margin-bottom: -450px !important;
+            }
+            
+            .emp button {
+                margin-left: 30%;
+            }
+            
+            .editReviewForm {
+                background-color: orange !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                width: 300px !important;
+                height: 300px !important;
+                padding-top: 100px !important;
+                padding-bottom: 100px !important;
+            }
+            
+            .editRoleForm {
+                background-color: orange;
+                padding: 20px 20px;
+                margin-bottom: 10px;
+                width: 400px;
+                transform: scale(.7);
+                flex: 1 1 200px;
+                /* Allow flexibility with a base width */
+                min-width: 150px;
+                margin-left: -30px;
+            }
+            
+            .roleForm {
+                height: 500px;
+            }
+            
+            .departmentsContainer {
+                background-color: red !important;
+            }
+            
+            .rolesHeader,
+            .deptHeader,
+            .addRole {
+                margin: 10px auto;
+                /* Center headers */
+            }
