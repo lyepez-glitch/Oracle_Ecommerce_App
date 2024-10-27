@@ -11,12 +11,23 @@ function Department({setDepartments,departments}){
     const [editedDepartmentManager,setEditedDepartmentManager] = useState(0);
     const [edit,setEdit] = useState(0);
 
-  const handleDeleteDepartmentClick = async (id) => {
-    const response = await axios.delete(`http://localhost:8081/departments/delete/${id}`);
-    console.log('department delete res:', response.data);
-    const fetchDepartments = await axios.get('http://localhost:8081/departments');
-    setDepartments(fetchDepartments.data);
+    const handleDeleteDepartmentClick = async (id) => {
+
+      try {
+          const response = await axios.delete(`http://localhost:8081/departments/delete/${id}`);
+          console.log('department delete res:', response.data);
+
+          // Update the state immediately to reflect the deletion
+          setDepartments((prevDepartments) => {
+              console.log('prev depts: ', prevDepartments); // Log the previous departments here
+              return prevDepartments.filter(department => department.id !== id);
+          });
+      } catch (error) {
+          console.error('Error deleting department:', error);
+      }
   }
+
+
 
   const handleEditDepartmentClick = async (department) => {
     console.log(22)
@@ -82,7 +93,7 @@ function Department({setDepartments,departments}){
 
 
       </form>
-      <h2>Departments</h2>
+      <h2 class="deptsHeader">Departments</h2>
       <div className="deptsContainer">
           {departments.map((department, index) => (
             edit === department.id?(

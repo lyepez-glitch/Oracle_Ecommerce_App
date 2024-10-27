@@ -60,6 +60,9 @@ function App() {
         const auditResponse = await axios.get('http://localhost:8081/employeeAudits');
         console.log('audit res', auditResponse);
         setAudits(auditResponse.data); // Should be 'data', not 'date'
+        const fetchDepartments = await axios.get('http://localhost:8081/departments');
+        console.log('fetch departments in mount',fetchDepartments)
+        setDepartments(fetchDepartments.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -74,6 +77,7 @@ function App() {
 
         <div id="innerRoot">
           <Employee
+            departments={departments}
             review={review}
             setReview={setReview}
             setReviews={setReviews}

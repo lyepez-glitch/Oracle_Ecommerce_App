@@ -3,7 +3,7 @@ import axios from 'axios';
 import Review from './Review';
 import Promote from './Promote';
 
-function Employee({ employees,setEmployees,setAudits,setReviews,reviews,review,setReview }) {
+function Employee({ departments,employees,setEmployees,setAudits,setReviews,reviews,review,setReview }) {
     const [employeeName, setEmployeeName] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [roleId, setRoleId] = useState('');
