@@ -105,6 +105,7 @@ function Role({setRoles,roles}){
                         onChange={(e) => setRoleName(e.target.value)}/>
                 </label>
 
+
                 <label className="salary">
                     Salary:
                     <input type="number" value={salary} onChange={(e) => setSalary(e.target.value)}/>

@@ -77,6 +77,7 @@ function App() {
 
         <div id="innerRoot">
           <Employee
+            roles={roles}
             departments={departments}
             review={review}
             setReview={setReview}

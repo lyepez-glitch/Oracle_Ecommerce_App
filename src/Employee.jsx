@@ -3,7 +3,7 @@ import axios from 'axios';
 import Review from './Review';
 import Promote from './Promote';
 
-function Employee({ departments,employees,setEmployees,setAudits,setReviews,reviews,review,setReview }) {
+function Employee({ roles,departments,employees,setEmployees,setAudits,setReviews,reviews,review,setReview }) {
     const [employeeName, setEmployeeName] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [roleId, setRoleId] = useState('');
@@ -148,17 +148,54 @@ function Employee({ departments,employees,setEmployees,setAudits,setReviews,revi
                 </label>
 
 
-                <label>
+                {/* <label>
                     Department ID:
                     <input type="number" value={departmentId}
                         onChange={(e) => setDepartmentId(e.target.value)}/>
-                </label>
+                </label> */}
+
+                <div>
+                  <label htmlFor="deptId">Department:</label>
+                  <select name="deptId"
+
+                  value={departmentId}
+                  onChange={e => {
+                    setDepartmentId(e.target.value);
+                  }}>
+                    {
+                      departments.map((dept)=>(
+
+                        <option key= {dept.departmentName} value={dept.id}>{dept.departmentName}</option>
+
+                        ))
+                    }
+
+                  </select>
+              </div>
 
 
-                <label>
+                {/* <label>
                     Role ID:
                     <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
-                </label>
+                </label> */}
+                <div>
+                  <label htmlFor="roleId">Role:</label>
+                  <select name="roleId"
+
+                  value={roleId}
+                  onChange={e => {
+                    setRoleId(e.target.value);
+                  }}>
+                    {
+                      roles.map((role)=>(
+
+                        <option key= {role.roleName} value={role.id}>{role.roleName}</option>
+
+                        ))
+                    }
+
+                  </select>
+              </div>
 
 
                 <label className="salary">
@@ -186,17 +223,59 @@ function Employee({ departments,employees,setEmployees,setAudits,setReviews,revi
                 </label>
 
 
-                <label>
+                {/* <label>
                     Edit Department ID:
                     <input type="number" value={editedDepartmentId}
                         onChange={(e) => setEditedDepartmentId(e.target.value)}/>
-                </label>
+                </label> */}
 
 
-                <label>
+                {/* <label>
                     Edit Role ID:
                     <input type="number" value={editedRoleId} onChange={(e) => setEditedRoleId(e.target.value)}/>
-                </label>
+                </label> */}
+                <div>
+                  <label htmlFor="editedDeptId">Edit Department:</label>
+                  <select name="editedDeptId"
+
+                  value={editedDepartmentId}
+                  onChange={e => {
+                    setEditedDepartmentId(e.target.value);
+                  }}>
+                    {
+                      departments.map((dept)=>(
+
+                        <option key= {dept.departmentName} value={dept.id}>{dept.departmentName}</option>
+
+                        ))
+                    }
+
+                  </select>
+              </div>
+
+
+                {/* <label>
+                    Role ID:
+                    <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
+                </label> */}
+                <div>
+                  <label htmlFor="editedRoleId">Edit Role:</label>
+                  <select name="editedRoleId"
+
+                  value={editedRoleId}
+                  onChange={e => {
+                    setEditedRoleId(e.target.value);
+                  }}>
+                    {
+                      roles.map((role)=>(
+
+                        <option key= {role.roleName} value={role.id}>{role.roleName}</option>
+
+                        ))
+                    }
+
+                  </select>
+              </div>
 
 
                 <label>

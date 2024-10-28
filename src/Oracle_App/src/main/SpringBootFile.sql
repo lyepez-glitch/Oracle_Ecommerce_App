@@ -413,5 +413,6 @@ BEGIN
 END delete_role;
 
 /
+DROP TRIGGER employee_audit_trigger;
 
 commit;

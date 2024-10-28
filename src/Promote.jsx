@@ -54,7 +54,7 @@ function Promote({emp,employees,setEmployees}){
         </form>
 
           ):(
-            <button  onClick={(event)=>handlePromoteClick(event,emp)}>Promote</button>
+            <button style={{marginLeft:'25%'}} onClick={(event)=>handlePromoteClick(event,emp)}>Promote</button>
           )
         }
       </div>
