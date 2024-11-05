@@ -53,14 +53,14 @@ function App() {
         console.log('res', response);
         setEmployees(response.data);
 
-        const roleResponse = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/roles');
+        const roleResponse = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
         console.log('res', roleResponse);
         setRoles(roleResponse.data);
 
-        const auditResponse = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/employeeAudits');
+        const auditResponse = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employeeAudits');
         console.log('audit res', auditResponse);
         setAudits(auditResponse.data); // Should be 'data', not 'date'
-        const fetchDepartments = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/departments');
+        const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
         console.log('fetch departments in mount',fetchDepartments)
         setDepartments(fetchDepartments.data);
       } catch (error) {
