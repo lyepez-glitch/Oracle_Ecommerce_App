@@ -28,9 +28,9 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
   }
 
   const handleDeleteClick = async(id) =>{
-    const response = await axios.delete(`http://localhost:8081/employees/delete/${id}`);
+    const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/employees/delete/${id}`);
     console.log('delete res:', response.data);
-    const fetchEmps = await axios.get('http://localhost:8081/employees');
+    const fetchEmps = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
     setEmployees(fetchEmps.data);
   }
 
@@ -52,7 +52,7 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       reviewDate: editedReviewDate
     }
     console.log('Edited Review DTO:', editedReviewDTO);
-    const response = await axios.put(`http://localhost:8081/reviews/update/${id}`,editedReviewDTO);
+    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/reviews/update/${id}`,editedReviewDTO);
     console.log('update res:', response.data);
 
 
@@ -61,7 +61,7 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
     setEditedReviewDate('');
 
 
-    const fetchReviews = await axios.get('http://localhost:8081/reviews');
+    const fetchReviews = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/reviews');
 
 
     setEditReview(null);
@@ -78,7 +78,7 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       salary: Number(editedSalary)
     }
     console.log('Edited Employee DTO:', employeeDTO);
-    const response = await axios.put(`http://localhost:8081/employees/update/${id}`,employeeDTO);
+    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/employees/update/${id}`,employeeDTO);
     console.log('update res:', response.data);
 
 
@@ -86,8 +86,8 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
     setEditedDepartmentId('');
     setEditedRoleId('');
     setEditedSalary('');
-    const fetchEmps = await axios.get('http://localhost:8081/employees');
-    const fetchAudits = await axios.get('http://localhost:8081/employeeAudits');
+    const fetchEmps = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
+    const fetchAudits = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employeeAudits');
     console.log('fetchAudits ',fetchAudits.data,fetchAudits);
     setAudits(fetchAudits.data);
     setEdit(null);
@@ -103,13 +103,13 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       salary: Number(salary)
     }
     console.log('Employee DTO:', employeeDTO);
-    const response = await axios.post('http://localhost:8081/employees/add',employeeDTO);
+    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/employees/add',employeeDTO);
     console.log('post res:', response.data);
     setEmployeeName('');
     setDepartmentId('');
     setRoleId('');
     setSalary('');
-    const fetchEmps = await axios.get('http://localhost:8081/employees');
+    const fetchEmps = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
     setEmployees(fetchEmps.data);
 
 
@@ -125,12 +125,12 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       reviewDate
     }
     console.log('Review DTO:', reviewDTO);
-    const response = await axios.post('http://localhost:8081/reviews/add',reviewDTO);
+    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/reviews/add',reviewDTO);
     console.log('post res:', response.data);
     setReviewComments('');
     setReviewScore('');
     setReviewDate('');
-    const fetchReviews = await axios.get('http://localhost:8081/reviews');
+    const fetchReviews = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/reviews');
     console.log('fetchReviews ',fetchReviews)
     setReviews(fetchReviews.data);
 

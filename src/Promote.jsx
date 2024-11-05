@@ -19,12 +19,12 @@ function Promote({emp,employees,setEmployees}){
     }
 
     console.log('PromoteDTO:', promoteDTO);
-    const response = await axios.put(`http://localhost:8081/employees/promote/${emp.id}`,promoteDTO);
+    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/employees/promote/${emp.id}`,promoteDTO);
     console.log('promote res:', response.data);
     setPromoteSalary('');
     setPromoteRole('');
     setPromote('');
-    const fetchEmployees = await axios.get('http://localhost:8081/employees');
+    const fetchEmployees = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
     console.log('fetchEmployees ',fetchEmployees);
     setEmployees(fetchEmployees.data);
   }

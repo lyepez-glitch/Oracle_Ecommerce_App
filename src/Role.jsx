@@ -11,9 +11,9 @@ function Role({setRoles,roles}){
     const [editedSalary,setEditedSalary] = useState('');
 
   const handleDeleteRoleClick = async (id) => {
-    const response = await axios.delete(`http://localhost:8081/roles/delete/${id}`);
+    const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/roles/delete/${id}`);
     console.log('role delete res:', response.data);
-    const fetchRoles = await axios.get('http://localhost:8081/roles');
+    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
     setRoles(fetchRoles.data);
   }
 
@@ -30,11 +30,11 @@ function Role({setRoles,roles}){
       salary: Number(editedSalary)
     }
     console.log('Edited Role DTO:', roleDTO,"id",id);
-    const response = await axios.put(`http://localhost:8081/roles/update/${id}`,roleDTO);
+    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/roles/update/${id}`,roleDTO);
     console.log('update res:', response.data);
     setEditedRoleName('');
     setEditedSalary('');
-    const fetchRoles = await axios.get('http://localhost:8081/roles');
+    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
     console.log('fetch roles after update',fetchRoles)
     setEdit(null);
     setRoles(fetchRoles.data);
@@ -46,12 +46,12 @@ function Role({setRoles,roles}){
       salary: Number(salary)
     }
     console.log('Role DTO:', roleDTO);
-    const response = await axios.post('http://localhost:8081/roles/add',roleDTO);
+    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/roles/add',roleDTO);
     console.log('role post res:', response.data);
     setRoleName('');
     setRoleId('');
     setSalary('');
-    const fetchRoles = await axios.get('http://localhost:8081/roles');
+    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
     console.log('Fetched roles:', fetchRoles.data);
     setRoles(fetchRoles.data);
 

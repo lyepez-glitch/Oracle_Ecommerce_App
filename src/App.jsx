@@ -21,7 +21,7 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8081/api/auth/login', {
+      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/login', {
         username,
         password,
       });
@@ -35,7 +35,7 @@ function App() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8081/api/auth/signup', {
+      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/signup', {
         username,
         password,
       });
@@ -49,18 +49,18 @@ function App() {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/employees');
+        const response = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
         console.log('res', response);
         setEmployees(response.data);
 
-        const roleResponse = await axios.get('http://localhost:8081/roles');
+        const roleResponse = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/roles');
         console.log('res', roleResponse);
         setRoles(roleResponse.data);
 
-        const auditResponse = await axios.get('http://localhost:8081/employeeAudits');
+        const auditResponse = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/employeeAudits');
         console.log('audit res', auditResponse);
         setAudits(auditResponse.data); // Should be 'data', not 'date'
-        const fetchDepartments = await axios.get('http://localhost:8081/departments');
+        const fetchDepartments = await axios.get('http://https://ecommerce-backend-1-yn41.onrender.com/departments');
         console.log('fetch departments in mount',fetchDepartments)
         setDepartments(fetchDepartments.data);
       } catch (error) {

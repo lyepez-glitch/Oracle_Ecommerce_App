@@ -14,7 +14,7 @@ function Department({setDepartments,departments}){
     const handleDeleteDepartmentClick = async (id) => {
 
       try {
-          const response = await axios.delete(`http://localhost:8081/departments/delete/${id}`);
+          const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/departments/delete/${id}`);
           console.log('department delete res:', response.data);
 
           // Update the state immediately to reflect the deletion
@@ -44,11 +44,11 @@ function Department({setDepartments,departments}){
 
     }
     console.log('Edited Department DTO:', departmentDTO,"id",id);
-    const response = await axios.put(`http://localhost:8081/departments/update/${id}`,departmentDTO);
+    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/departments/update/${id}`,departmentDTO);
     console.log('update res:', response.data);
     setEditedDepartmentName('');
     setEditedDepartmentManager('');
-    const fetchDepartments = await axios.get('http://localhost:8081/departments');
+    const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
     console.log('fetch departments after update',fetchDepartments)
     setEdit(null);
     setDepartments(fetchDepartments.data);
@@ -60,11 +60,11 @@ function Department({setDepartments,departments}){
       departmentManager: Number(departmentManager)
     }
     console.log('dept DTO:', departmentDTO);
-    const response = await axios.post('http://localhost:8081/departments/add',departmentDTO);
+    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/departments/add',departmentDTO);
     console.log('department post res:', response.data);
     setDepartmentName('');
     setDepartmentManager(0);
-    const fetchDepartments = await axios.get('http://localhost:8081/departments');
+    const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
     console.log('Fetched departments:', fetchDepartments.data);
     setDepartments(fetchDepartments.data);
 
