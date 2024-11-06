@@ -35,10 +35,15 @@ function App() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/signup', {
+      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/signup',
+      {
         username,
         password,
-      });
+      },
+      {
+        withCredentials: true, // Include credentials with the request
+      }
+    );
       console.log(response.data); // Handle signup success
       setSignUp(true); // Mark as signed up
     } catch (error) {
