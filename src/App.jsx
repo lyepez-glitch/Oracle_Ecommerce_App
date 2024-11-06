@@ -39,10 +39,10 @@ function App() {
       {
         username,
         password,
-      },
-      {
-        withCredentials: true, // Include credentials with the request
       }
+      // {
+      //   withCredentials: true, // Include credentials with the request
+      // }
     );
       console.log(response.data); // Handle signup success
       setSignUp(true); // Mark as signed up
