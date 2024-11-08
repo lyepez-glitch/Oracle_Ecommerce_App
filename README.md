@@ -37,6 +37,9 @@ bash
 Copy code
 git clone https://github.com/lyepez-glitch/Ecommerce_Backend
 cd Ecommerce_Backend
+Check Out SQL File:
+
+See SpringBootFile.sql for all SQL queries used to build the backend database structure and functionality.
 Ensure Java and Maven are Installed:
 
 Check that Java and Maven are installed on your machine.
@@ -80,4 +83,3 @@ Frontend Repository
 Backend Repository
 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
-
