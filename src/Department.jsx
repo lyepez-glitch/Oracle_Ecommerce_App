@@ -12,6 +12,7 @@ function Department({setDepartments,departments}){
     const [edit,setEdit] = useState(0);
 
     const handleDeleteDepartmentClick = async (id) => {
+      console.log('handleDeleteDepartmentClick')
 
       try {
           const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/departments/delete/${id}`);
