@@ -17,25 +17,26 @@ function App() {
   const [isSignedUp, setSignUp] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const backendUrl = import.meta.env.VITE_RENDER_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/login', {
+      const response = await axios.post(`${backendUrl}/api/auth/login`, {
         username,
         password,
       });
-      console.log(response.data); // Handle login success
+
       setLogin(true); // Mark as loggedin
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login failed:');
     }
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/api/auth/signup',
+      const response = await axios.post(`${backendUrl}/api/auth/signup`,
       {
         username,
         password,
@@ -44,32 +45,32 @@ function App() {
       //   withCredentials: true, // Include credentials with the request
       // }
     );
-      console.log(response.data); // Handle signup success
+
       setSignUp(true); // Mark as signed up
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error('Signup failed:');
     }
   };
 
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
-        console.log('res', response);
+        const response = await axios.get(`${backendUrl}/employees`);
+
         setEmployees(response.data);
 
-        const roleResponse = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
-        console.log('res', roleResponse);
+        const roleResponse = await axios.get(`${backendUrl}/roles`);
+
         setRoles(roleResponse.data);
 
-        const auditResponse = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employeeAudits');
-        console.log('audit res', auditResponse);
+        const auditResponse = await axios.get(`${backendUrl}/employeeAudits`);
+
         setAudits(auditResponse.data); // Should be 'data', not 'date'
-        const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
-        console.log('fetch departments in mount',fetchDepartments)
+        const fetchDepartments = await axios.get(`${backendUrl}/departments`);
+
         setDepartments(fetchDepartments.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:');
       }
     };
     fetchEmployees();

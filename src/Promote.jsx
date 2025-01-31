@@ -5,6 +5,7 @@ function Promote({emp,employees,setEmployees}){
   const [promoteSalary,setPromoteSalary] = useState('')
   const [promoteRole,setPromoteRole] = useState('')
   const [promote,setPromote] = useState('');
+  const backendUrl = import.meta.env.VITE_RENDER_URL;
   const handlePromoteClick = async(event,emp)=>{
     setPromote(emp.id);
   }
@@ -18,14 +19,14 @@ function Promote({emp,employees,setEmployees}){
 
     }
 
-    console.log('PromoteDTO:', promoteDTO);
-    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/employees/promote/${emp.id}`,promoteDTO);
-    console.log('promote res:', response.data);
+
+    const response = await axios.put(`${backendUrl}/employees/promote/${emp.id}`,promoteDTO);
+
     setPromoteSalary('');
     setPromoteRole('');
     setPromote('');
-    const fetchEmployees = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/employees');
-    console.log('fetchEmployees ',fetchEmployees);
+    const fetchEmployees = await axios.get(`${backendUrl}/employees`);
+
     setEmployees(fetchEmployees.data);
   }
 

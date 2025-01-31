@@ -14,11 +14,12 @@ function Review({ setReviews, emp, reviews }) {  // Added 'emp' and 'reviews' as
     const [editedReviewComments, setEditedReviewComments] = useState(''); // Added for edited review comments
     const [editedReviewScore, setEditedReviewScore] = useState(0); // Added for edited review score
     const [editReview, setEditReview] = useState(null); // State to track which review is being edited
+    const backendUrl = import.meta.env.VITE_RENDER_URL;
 
     const handleDeleteDepartmentClick = async (id) => {
-        const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/departments/delete/${id}`);
-        console.log('department delete res:', response.data);
-        const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
+        const response = await axios.delete(`${backendUrl}/departments/delete/${id}`);
+
+        const fetchDepartments = await axios.get(`${backendUrl}/departments`);
         setDepartments(fetchDepartments.data);
     };
 
@@ -34,13 +35,13 @@ function Review({ setReviews, emp, reviews }) {  // Added 'emp' and 'reviews' as
             departmentName: editedDepartmentName,
             departmentManager: editedDepartmentManager
         };
-        console.log('Edited Department DTO:', departmentDTO, "id", id);
-        const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/departments/update/${id}`, departmentDTO);
-        console.log('update res:', response.data);
+
+        const response = await axios.put(`${backendUrl}/departments/update/${id}`, departmentDTO);
+
         setEditedDepartmentName('');
         setEditedDepartmentManager('');
-        const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
-        console.log('fetch departments after update', fetchDepartments);
+        const fetchDepartments = await axios.get(`${backendUrl}/departments`);
+
         setEdit(null);
         setDepartments(fetchDepartments.data);
     };
@@ -51,13 +52,13 @@ function Review({ setReviews, emp, reviews }) {  // Added 'emp' and 'reviews' as
             departmentName,
             departmentManager: Number(departmentManager)
         };
-        console.log('dept DTO:', departmentDTO);
-        const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/departments/add', departmentDTO);
-        console.log('department post res:', response.data);
+
+        const response = await axios.post(`${backendUrl}/departments/add`, departmentDTO);
+
         setDepartmentName('');
         setDepartmentManager(0);
-        const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
-        console.log('Fetched departments:', fetchDepartments.data);
+        const fetchDepartments = await axios.get(`${backendUrl}/departments`);
+
         setDepartments(fetchDepartments.data);
     };
 
@@ -68,19 +69,19 @@ function Review({ setReviews, emp, reviews }) {  // Added 'emp' and 'reviews' as
             reviewComments,
             reviewScore
         };
-        console.log('Review DTO:', reviewDTO);
-        const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/reviews/add', reviewDTO);
-        console.log('Review post res:', response.data);
+
+        const response = await axios.post(`${backendUrl}/reviews/add`, reviewDTO);
+
         setReviewComments('');
         setReviewScore(0);
-        const fetchReviews = await axios.get(`https://ecommerce-backend-1-yn41.onrender.com/reviews`);
+        const fetchReviews = await axios.get(`${backendUrl}/reviews`);
         setReviews(fetchReviews.data);
     };
 
     const handleReviewDeleteClick = async(id)=>{
-        const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/reviews/delete/${id}`);
-        console.log('Delete review res:', response.data);
-        const fetchReviews = await axios.get(`https://ecommerce-backend-1-yn41.onrender.com/reviews`);
+        const response = await axios.delete(`${backendUrl}/reviews/delete/${id}`);
+
+        const fetchReviews = await axios.get(`${backendUrl}/reviews`);
         setReviews(fetchReviews.data);
     }
 
@@ -97,11 +98,11 @@ function Review({ setReviews, emp, reviews }) {  // Added 'emp' and 'reviews' as
             reviewComments: editedReviewComments,
             reviewScore: editedReviewScore
         };
-        console.log('Edited Review DTO:', editedReviewDTO, "id", reviewId);
-        const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/reviews/update/${reviewId}`, editedReviewDTO);
-        console.log('Update review res:', response.data);
+
+        const response = await axios.put(`${backendUrl}/reviews/update/${reviewId}`, editedReviewDTO);
+
         setEditReview(null);
-        const fetchReviews = await axios.get(`https://ecommerce-backend-1-yn41.onrender.com/reviews`);
+        const fetchReviews = await axios.get(`${backendUrl}/reviews`);
         setReviews(fetchReviews.data);
     };
 

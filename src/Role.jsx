@@ -9,11 +9,12 @@ function Role({setRoles,roles}){
     const [editedRoleName,setEditedRoleName] = useState('');
     const [editedRoleId,setEditedRoleId] = useState('');
     const [editedSalary,setEditedSalary] = useState('');
+    const backendUrl = import.meta.env.VITE_RENDER_URL;
 
   const handleDeleteRoleClick = async (id) => {
-    const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/roles/delete/${id}`);
-    console.log('role delete res:', response.data);
-    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
+    const response = await axios.delete(`${backendUrl}/roles/delete/${id}`);
+
+    const fetchRoles = await axios.get(`${backendUrl}/roles`);
     setRoles(fetchRoles.data);
   }
 
@@ -29,13 +30,13 @@ function Role({setRoles,roles}){
       roleName:editedRoleName,
       salary: Number(editedSalary)
     }
-    console.log('Edited Role DTO:', roleDTO,"id",id);
-    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/roles/update/${id}`,roleDTO);
-    console.log('update res:', response.data);
+
+    const response = await axios.put(`${backendUrl}/roles/update/${id}`,roleDTO);
+
     setEditedRoleName('');
     setEditedSalary('');
-    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
-    console.log('fetch roles after update',fetchRoles)
+    const fetchRoles = await axios.get(`${backendUrl}/roles`);
+
     setEdit(null);
     setRoles(fetchRoles.data);
   }
@@ -45,14 +46,14 @@ function Role({setRoles,roles}){
       roleName,
       salary: Number(salary)
     }
-    console.log('Role DTO:', roleDTO);
-    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/roles/add',roleDTO);
-    console.log('role post res:', response.data);
+
+    const response = await axios.post(`${backendUrl}/roles/add`,roleDTO);
+
     setRoleName('');
     setRoleId('');
     setSalary('');
-    const fetchRoles = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/roles');
-    console.log('Fetched roles:', fetchRoles.data);
+    const fetchRoles = await axios.get(`${backendUrl}/roles`);
+
     setRoles(fetchRoles.data);
 
   }

@@ -10,28 +10,29 @@ function Department({setDepartments,departments}){
     const [editedDepartmentName,setEditedDepartmentName] = useState('');
     const [editedDepartmentManager,setEditedDepartmentManager] = useState(0);
     const [edit,setEdit] = useState(0);
+    const backendUrl = import.meta.env.VITE_RENDER_URL;
 
     const handleDeleteDepartmentClick = async (id) => {
-      console.log('handleDeleteDepartmentClick')
+
 
       try {
-          const response = await axios.delete(`https://ecommerce-backend-1-yn41.onrender.com/departments/delete/${id}`);
-          console.log('department delete res:', response.data);
+          const response = await axios.delete(`${backendUrl}/departments/delete/${id}`);
+
 
           // Update the state immediately to reflect the deletion
           setDepartments((prevDepartments) => {
-              console.log('prev depts: ', prevDepartments); // Log the previous departments here
+
               return prevDepartments.filter(department => department.id !== id);
           });
       } catch (error) {
-          console.error('Error deleting department:', error);
+          console.error('Error deleting department:');
       }
   }
 
 
 
   const handleEditDepartmentClick = async (department) => {
-    console.log(22)
+
     setEdit(department.id);
     setEditedDepartmentName(department.departmentName);
     setEditedDepartmentManager(department.departmentManager);
@@ -44,13 +45,13 @@ function Department({setDepartments,departments}){
       departmentManager: editedDepartmentManager
 
     }
-    console.log('Edited Department DTO:', departmentDTO,"id",id);
-    const response = await axios.put(`https://ecommerce-backend-1-yn41.onrender.com/departments/update/${id}`,departmentDTO);
-    console.log('update res:', response.data);
+
+    const response = await axios.put(`${backendUrl}/departments/update/${id}`,departmentDTO);
+
     setEditedDepartmentName('');
     setEditedDepartmentManager('');
-    const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
-    console.log('fetch departments after update',fetchDepartments)
+    const fetchDepartments = await axios.get(`${backendUrl}/departments`);
+
     setEdit(null);
     setDepartments(fetchDepartments.data);
   }
@@ -60,13 +61,13 @@ function Department({setDepartments,departments}){
       departmentName,
       departmentManager: Number(departmentManager)
     }
-    console.log('dept DTO:', departmentDTO);
-    const response = await axios.post('https://ecommerce-backend-1-yn41.onrender.com/departments/add',departmentDTO);
-    console.log('department post res:', response.data);
+
+    const response = await axios.post(`${backendUrl}/departments/add`,departmentDTO);
+
     setDepartmentName('');
     setDepartmentManager(0);
-    const fetchDepartments = await axios.get('https://ecommerce-backend-1-yn41.onrender.com/departments');
-    console.log('Fetched departments:', fetchDepartments.data);
+    const fetchDepartments = await axios.get(`${backendUrl}/departments`);
+
     setDepartments(fetchDepartments.data);
 
   }
