@@ -4,7 +4,7 @@ import axios from 'axios';
 import Employee from './Employee.jsx';
 import Role from './Role';
 import Audit from './Audit';
-import Department from './Department';
+
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -17,7 +17,45 @@ function App() {
   const [isSignedUp, setSignUp] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const backendUrl = import.meta.env.VITE_RENDER_URL;
+  const [addEmp,setAddEmp] = useState(true);
+  const [empList,setEmpList] = useState(false);
+  const [pim,setPIM] = useState(true);
+  const [admin,setAdmin] = useState(false);
+  const [audit,setAudit] = useState(false);
+  // const backendUrl = import.meta.env.VITE_RENDER_URL;
+
+  const backendUrl = 'http://localhost:8080';
+  console.log('backend url',backendUrl);
+
+  const handleAuditPage = (e)=>{
+    e.preventDefault();
+    setPIM(false);
+    setAdmin(false);
+    setAudit(true);
+  }
+
+  const handlePIMPage = (e) =>{
+    e.preventDefault();
+    setPIM(true);
+    setAdmin(false);
+  }
+
+  const handleAdminPage = (e)=>{
+    e.preventDefault();
+    setAdmin(true);
+    setPIM(false);
+  }
+
+  const handleLoginLink = (e) =>{
+    e.preventDefault();
+    setSignUp(true);
+    setLogin(false);
+  }
+  const handleSignUpLink = (e) =>{
+    e.preventDefault();
+    setSignUp(false);
+    setLogin(false);
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,9 +70,21 @@ function App() {
       console.error('Login failed:');
     }
   };
+  const handleAddEmp = () => {
+    setAddEmp(true);
+  }
+  const handleEmpList = async() =>{
+    setAddEmp(false);
+    setEmpList(true);
+    const fetchReviews = await axios.get(`${backendUrl}/reviews`);
+    console.log("fetchReviews",fetchReviews.data);
+    setReviews(fetchReviews.data);
+    console.log('handleemplist reviews',reviews);
+  }
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log('handle sign up');
     try {
       const response = await axios.post(`${backendUrl}/api/auth/signup`,
       {
@@ -78,11 +128,27 @@ function App() {
 
   return (
 
-    <div>
+    <>
       {isSignedUp && isLoggedIn ? (
 
-        <div id="innerRoot">
-          <Employee
+        <>
+          <div className="navBar">
+          <div onClick={handlePIMPage} className="nav-item">PIM</div>
+          <div onClick={handleAdminPage} className="nav-item">ADMIN</div>
+          <div onClick={handleAuditPage} className="nav-item">Audit Trail</div>
+      </div>
+
+      {
+        pim?(
+        <>
+          <div className="horizontalNav">
+        <span style={{color:'#fff'}}>PIM</span>
+      </div>
+      <div className="horizontalSubNav">
+      <button onClick={handleAddEmp} style={{color:'#fff'}}>Add Employee</button>
+      <button onClick={handleEmpList} style={{color:'#fff'}}>Employee List</button>
+      </div>
+      <Employee
             roles={roles}
             departments={departments}
             review={review}
@@ -92,22 +158,37 @@ function App() {
             setAudits={setAudits}
             setEmployees={setEmployees}
             employees={employees}
+            addEmp={addEmp}
+            setAddEmp={setAddEmp}
+            empList={empList}
           />
+        </>
 
-          <Role setRoles={setRoles} roles={roles} />
-          <Audit setAudits={setAudits} audits={audits} />
-          <Department setDepartments={setDepartments} departments={departments} />
+        ):admin?(
+        <>
+          <Role departments={departments} setDepartments={setDepartments} setRoles={setRoles} roles={roles} />
+        </>
+      ):audit?(<Audit setAudits={setAudits} audits={audits} />):null
+      }
 
-        </div>
+
+
+
+
+
+        </>
       ) : isSignedUp && !isLoggedIn ? (
-        <div>
-          <h1>Log In</h1>
-          <form onSubmit={handleLogin}>
+
+
+          <form className = "loginForm" onSubmit={handleLogin}>
+            <div style={{textAlign: 'left', fontSize: '30px', paddingTop: '0px',marginTop:'20px'}}>Log In</div>
             <input
+              style={{marginTop:'40px'}}
               type="text"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+
             />
             <input
               type="password"
@@ -116,17 +197,18 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Log In</button>
+            <div onClick={handleSignUpLink} className="signUpLink">Looking to <span><a href="">Create an account</a>?</span></div>
           </form>
-        </div>
+
       ) : (
-        <div>
-          <h1>Sign Up</h1>
-          <form onSubmit={handleSignup}>
+        <form className="signUpForm" onSubmit={handleSignup}>
+          <div className="registerEle" style={{textAlign:'left',fontSize:'30px',paddingTop:'0px',marginBottom:'20px',marginTop:'20px'}}>Register</div>
             <input
               type="text"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              style={{marginTop:'20px'}}
             />
             <input
               type="password"
@@ -135,10 +217,10 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Sign Up</button>
+            <div onClick={handleLoginLink} className="logInLink">Don't have an account? <span><a href="">Log In</a></span></div>
           </form>
-        </div>
       )}
-    </div>
+    </>
   );
 }
 

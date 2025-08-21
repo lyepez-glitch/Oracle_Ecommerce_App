@@ -1,85 +1,86 @@
-E-Commerce Application
-This is a comprehensive eCommerce application built with Spring Boot for the backend, Oracle SQL Developer for the database, and a React frontend powered by Vite. The application provides a seamless shopping experience with various features for both customers and administrators.
+Frontend README – Employee Management System
+Employee Management System - Frontend
+
+React frontend for an Employee Management System. Allows managing employees, roles, departments, and reviews with a secure login system. Works with a Spring Boot + Oracle backend.
 
 Table of Contents
+
 Features
+
 Technologies Used
+
 Setup
-Backend Setup
-Frontend Setup
+
+Running the Frontend
+
 Accessing the Application
+
 Usage
+
 Contributing
+
 License
+
 Features
-User Authentication: Secure login and registration system.
-Product Management: View products, product details, and add to cart.
-Shopping Cart: Real-time cart management.
-Order Processing: Manage and track customer orders.
-Admin Panel: Administrative features for managing products and orders.
+
+User Authentication: Sign up and login.
+
+Employee Management: Add, edit, update, delete employees.
+
+Role & Department Management: Manage roles and departments.
+
+Employee Reviews: Add and edit reviews for employees.
+
+Promotions: Promote employees with role/department changes.
+
+Audit Logs: View employee-related audit logs.
+
 Technologies Used
-Backend:
 
-Spring Boot - A Java-based framework for building RESTful web services.
-Oracle SQL Developer - An IDE for Oracle database management.
-Frontend:
+React 18 – Frontend UI
 
-React - A JavaScript library for building user interfaces.
-Vite - A fast frontend tool for development.
-Database:
+Vite – Development server & build tool
 
-Oracle Database (optionally accessed via Docker for local setups).
+Axios – HTTP requests to backend
+
+JavaScript / JSX
+
 Setup
-Backend Setup
-Clone the Backend Repository:
+Clone the Repository:
+git clone https://github.com/your-username/EmployeeManagement_Frontend
+cd EmployeeManagement_Frontend
 
-bash
-Copy code
-git clone https://github.com/lyepez-glitch/Ecommerce_Backend
-cd Ecommerce_Backend
-Check Out SQL File:
-
-See SpringBootFile.sql for all SQL queries used to build the backend database structure and functionality.
-Ensure Java and Maven are Installed:
-
-Check that Java and Maven are installed on your machine.
-Build the Application:
-
-bash
-Copy code
-mvn clean install
-Configure Application Properties:
-
-Update src/main/resources/application.properties with your database configuration.
-Run the Application:
-
-To access the backend directly, navigate to ecommerce-backend-1-yn41.onrender.com.
-Frontend Setup
-Clone the Frontend Repository:
-
-bash
-Copy code
-git clone https://github.com/lyepez-glitch/Oracle_Ecommerce_App
-cd Oracle_Ecommerce_App
 Install Dependencies:
-
-bash
-Copy code
 npm install
-Start the Development Server:
 
-You can access the frontend at oracle-ecommerce-k7omklaqi-lucas-projects-f61d5cb5.vercel.app.
+Start Development Server:
+npm run dev
+
+
+The app will be accessible at http://localhost:5173 (default Vite URL).
+
 Accessing the Application
-Backend API: https://ecommerce-backend-1-yn41.onrender.com
-Frontend UI: https://oracle-ecommerce-k7omklaqi-lucas-projects-f61d5cb5.vercel.app
-Usage
-Open the Frontend: Navigate to oracle-ecommerce-k7omklaqi-lucas-projects-f61d5cb5.vercel.app.
-Explore Features: Browse products, add items to your cart, and place orders.
-Admin Access: Log in with admin credentials to manage products and view orders.
-Contributing
-Contributions are welcome! Please submit a pull request or open an issue on the relevant repository:
 
-Frontend Repository
-Backend Repository
+Frontend UI: http://localhost:5173
+
+Backend API: http://localhost:8080
+
+Usage
+
+Open the frontend in a browser.
+
+Sign up or login.
+
+Navigate to manage employees, roles, and departments.
+
+Add/edit reviews and promote employees.
+
+Contributing
+
+Contributions welcome via pull requests or issues.
+
+Ensure code is linted with ESLint before submitting.
+
 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+
+MIT License

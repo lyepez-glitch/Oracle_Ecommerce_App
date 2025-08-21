@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
 import Review from './Review';
 import Promote from './Promote';
 
-function Employee({ roles,departments,employees,setEmployees,setAudits,setReviews,reviews,review,setReview }) {
+function Employee({ roles,departments,employees,setEmployees,setAudits,setReviews,reviews,review,setReview,addEmp,setAddEmp,empList }) {
     const [employeeName, setEmployeeName] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [roleId, setRoleId] = useState('');
@@ -20,19 +20,94 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
     const [editedReviewComments,setEditedReviewComments] = useState('')
     const [editedReviewScore,setEditedReviewScore] = useState('')
     const [editedReviewDate,setEditedReviewDate] = useState('')
-    const backendUrl = import.meta.env.VITE_RENDER_URL;
-  const handleReviewEditClick = async(id) =>{
-    setEditReview(id);
+    const [editReviewEmpId,setEditReviewEmpId ] = useState('');
+    const [promoteStatus,setPromoteStatus] = useState("")
+    const [empEditStatus,setEmpEditStatus] = useState("")
+    const [deleteReviewStatus,setDeleteReviewStatus] = useState("")
+    const [empDeleteStatus,setEmpDeleteStatus] = useState("");
+    const [status,setStatus] = useState("")
+    const [deletedReviewId,setDeletedReviewId] = useState(null);
+    const [deletedEmpId,setDeletedEmpId] = useState(null);
+    // useEffect(() => {
+    //   const headerNav = document.querySelector('.horizontalNav');
+    //   const headerSubNav = document.querySelector('.horizontalSubNav');
+    //   const empsContainer = document.querySelector('.empsContainer');
+    //   console.log('header',headerNav,'empsContainer',empsContainer);
+    //   if (headerNav && headerSubNav && empsContainer) {
+
+    //     empsContainer.style.marginTop = `${empsContainer.offsetHeight - 200}px`;
+    //   }
+    // }, []);
+
+
+    // const backendUrl = import.meta.env.VITE_RENDER_URL;
+    const backendUrl = 'http://localhost:8080';
+    console.log('reviews',reviews)
+
+  const handleReviewEditClick = async(review) =>{
+    setEditReview(review.id);
+    setEditReviewEmpId(review.employeeId);
   }
+
+  const cancelEditEmp = () =>{
+    setEdit(null);
+  }
+
+
+//   const handleReviewEditClick = (reviewId) => {
+//     setEditReview(reviewId);
+//     const reviewToEdit = reviews.find(review => review.id === reviewId);
+//     console.log('reviewToEdit',reviewToEdit);
+//     setEditedReviewComments(reviewToEdit.reviewComments);
+//     setEditedReviewScore(reviewToEdit.reviewScore);
+// };
   const handleReviewClick = async(id) =>{
     setReview(id);
   }
 
-  const handleDeleteClick = async(id) =>{
-    const response = await axios.delete(`${backendUrl}/employees/delete/${id}`);
+  const handleReviewDeleteClick = async(id)=>{
+    setDeletedReviewId(id);
+    try{
+      const response = await axios.delete(`${backendUrl}/reviews/delete/${id}`);
+      setDeleteReviewStatus("success");
 
-    const fetchEmps = await axios.get(`${backendUrl}/employees`);
-    setEmployees(fetchEmps.data);
+      setTimeout(async ()=>{
+
+        const fetchReviews = await axios.get(`${backendUrl}/reviews`);
+        setReviews(fetchReviews.data);
+        setDeleteReviewStatus("");
+        setDeletedReviewId(null);
+    },1500);
+
+    }catch(error){
+      setDeleteReviewStatus("error");
+    }
+
+
+}
+
+  const handleDeleteClick = async(id) =>{
+    setDeletedEmpId(id);
+    try{
+      const response = await axios.delete(`${backendUrl}/employees/delete/${id}`);
+      setEmpDeleteStatus("success");
+
+      setTimeout(async ()=>{
+        const fetchEmps = await axios.get(`${backendUrl}/employees`);
+        setEmployees(fetchEmps.data);
+        setEmpDeleteStatus("")
+        setDeletedEmpId(null)
+      },1500);
+
+
+    }catch(error){
+      setEmpDeleteStatus("error");
+          console.error('Error deleting employee:');
+    }
+
+
+
+
   }
 
   const handleEditClick = (emp) => {
@@ -79,20 +154,34 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       salary: Number(editedSalary)
     }
 
-    const response = await axios.put(`${backendUrl}/employees/update/${id}`,employeeDTO);
+
+
+    try{
+      const response = await axios.put(`${backendUrl}/employees/update/${id}`,employeeDTO);
+
+      setEmpEditStatus("success");
+
+      setTimeout(async ()=>{
+
+        setEmpEditStatus("");
+        setEditedEmployeeName('');
+        setEditedDepartmentId('');
+        setEditedRoleId('');
+        setEditedSalary('');
+        const fetchEmps = await axios.get(`${backendUrl}/employees`);
+        const fetchAudits = await axios.get(`${backendUrl}/employeeAudits`);
+
+        setAudits(fetchAudits.data);
+        setEdit(null);
+        setEmployees(fetchEmps.data);
+        setEmpEditStatus("");
+    },1500);
+    }catch(error){
+      setEmpEditStatus("error");
+    }
 
 
 
-    setEditedEmployeeName('');
-    setEditedDepartmentId('');
-    setEditedRoleId('');
-    setEditedSalary('');
-    const fetchEmps = await axios.get(`${backendUrl}/employees`);
-    const fetchAudits = await axios.get(`${backendUrl}/employeeAudits`);
-
-    setAudits(fetchAudits.data);
-    setEdit(null);
-    setEmployees(fetchEmps.data);
   }
 
   const handleSubmit = async (event) =>{
@@ -103,15 +192,26 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
       roleId: Number(roleId),
       salary: Number(salary)
     }
+    try{
+      const response = await axios.post(`${backendUrl}/employees/add`,employeeDTO);
+      setStatus("success");
+      setTimeout(async ()=>{
+        setEmployeeName('');
+        setDepartmentId('');
+        setRoleId('');
+        setSalary('');
+        const fetchEmps = await axios.get(`${backendUrl}/employees`);
+        setEmployees(fetchEmps.data);
+        setStatus("");
+      },1500);
+    }catch(error){
+      console.error("Error adding employee:", error);
+      setStatus("error");
+    }
 
-    const response = await axios.post(`${backendUrl}/employees/add`,employeeDTO);
 
-    setEmployeeName('');
-    setDepartmentId('');
-    setRoleId('');
-    setSalary('');
-    const fetchEmps = await axios.get(`${backendUrl}/employees`);
-    setEmployees(fetchEmps.data);
+
+
 
 
   }
@@ -132,18 +232,26 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
     setReviewScore('');
     setReviewDate('');
     const fetchReviews = await axios.get(`${backendUrl}/reviews`);
+    console.log('reviews',fetchReviews.data);
 
     setReviews(fetchReviews.data);
 
   }
 
   return (
-    <div className="employeesCont">
-      <h2 className="addEmp">Add Employee</h2>
-      <form className="empForm" onSubmit = {handleSubmit}>
+    <>
+    {/* <div id="deleteEmpEle" className={empDeleteStatus === "success" ? "successMsg" : empDeleteStatus === "error" ? "errorMsg" : "hidden"}>
+                {empDeleteStatus === "success" && "Employee deleted successfully!"}
+                {empDeleteStatus === "error" && "Something went wrong."}
 
-                <label>
-                    Employee Name:
+            </div> */}
+    {
+      addEmp?(
+        <form className="empForm" onSubmit = {handleSubmit}>
+        <h1>Add employee</h1>
+
+                <label className="empNameCont">
+                    <span>Employee Name</span>
                     <input type="text" value={employeeName}
                         onChange={(e) => setEmployeeName(e.target.value)}/>
                 </label>
@@ -155,8 +263,8 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
                         onChange={(e) => setDepartmentId(e.target.value)}/>
                 </label> */}
 
-                <div>
-                  <label htmlFor="deptId">Department:</label>
+                <div className="deptCont" style={{}}>
+                  <label htmlFor="deptId">Department</label>
                   <select name="deptId"
 
                   value={departmentId}
@@ -179,8 +287,8 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
                     Role ID:
                     <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
                 </label> */}
-                <div>
-                  <label htmlFor="roleId">Role:</label>
+                <div className="roleCont" style={{}}>
+                  <label htmlFor="roleId">Role</label>
                   <select name="roleId"
 
                   value={roleId}
@@ -199,150 +307,287 @@ function Employee({ roles,departments,employees,setEmployees,setAudits,setReview
               </div>
 
 
-                <label className="salary">
-                    Salary:
+                <label style={{marginLeft:'0px'}} className="salary">
+                    Salary
                     <input type="number" value={salary} onChange={(e) => setSalary(e.target.value)}/>
                 </label>
+            <div className="divider"></div>
 
-            <button type="submit">Add Employee</button>
+            <div className="addEmpBtnCont">
+
+
+            <div className={status === "success" ? "successMsg" : status === "error" ? "errorMsg" : "hidden"}>
+                {status === "success" && "Employee added successfully!"}
+                {status === "error" && "Something went wrong."}
+            </div>
+
+
+            <button type="submit">Save</button>
+
+            </div>
+
 
 
         </form>
+      ):empList?(
+        <div style={{borderRadius:'20px'}} className="empsContainer">
+          {/* <div style={{position:'absolute',width: "auto",marginTop: "40px",maxHeight: "20px",padding: "0"}}  className={"deleteReviewStatusEle " + (deleteReviewStatus === "success" ? "successMsg" : deleteReviewStatus === "error" ? "errorMsg" : "") + (deleteReviewStatus === "" ? " hidden" : "")
+           }>
+            {deleteReviewStatus === "success" && "Review successfully deleted!"}
+            {deleteReviewStatus === "error" && "Something went wrong."}
+           </div> */}
 
 
-      <div className="empsContainer">
+          <div style={{borderRadius:'0px',backgroundColor:"#fff",display:'flex',marginBottom:'20px',justifyContent:'flex-start',paddingLeft:'0px',paddingRight:'0px',borderTopLeftRadius: '20px',borderTopRightRadius: '20px'}} className="empsContDivider">
 
-      <h2 style={{marginLeft:'10%',marginTop:'150px'}}>Employees</h2>
-          {employees.map((emp, index) => (
-            edit === emp.id?(
-              <form className="emp editEmpForm" key={emp.id} onSubmit = {(e)=>handleEditSubmit(e,emp.id)}>
+            <div style={{borderRadius:'0px',width:'100%',textAlign:'left',borderTop:'1px solid lightgray',paddingBottom:'40px'}}>{employees.length} records found</div>
+          </div>
+          {/* <div style={{backgroundColor: '#e8eaef'}} className="empLabels">
+                    <span>Name</span>
+                    <span style={{marginLeft:'35px'}}>Salary</span>
+                    <span style={{marginRight:'100px'}}>Actions</span>
+                  </div> */}
 
-                <label>
-                    Edit Employee Name:
-                    <input type="text" value={editedEmployeeName}
-                        onChange={(e) => setEditedEmployeeName(e.target.value)}/>
-                </label>
+            {employees.map((emp, index) => (
+              edit === emp.id?(
+                <form className="emp editEmpForm" key={emp.id} onSubmit = {(e)=>handleEditSubmit(e,emp.id)}>
+                  <div className="editEmpFormSubWrapper">
+                    <div className="editPersonalDetails" style={{color:'#64728c',fontWeight:'bold',fontSize:'25px',borderBottom:'1px solid lightgray',padding: '0px',textAlign:'left',paddingBottom:'10px',borderRadius:'0',marginBottom:'50px',marginTop:'20px'}}>Personal Details</div>
+                  <label className="editEmpNameLabel">
+                      Employee Name
+                      <input type="text" value={editedEmployeeName}
+                          onChange={(e) => setEditedEmployeeName(e.target.value)}/>
+                  </label>
 
 
-                {/* <label>
-                    Edit Department ID:
-                    <input type="number" value={editedDepartmentId}
-                        onChange={(e) => setEditedDepartmentId(e.target.value)}/>
-                </label> */}
+                  {/* <label>
+                      Edit Department ID:
+                      <input type="number" value={editedDepartmentId}
+                          onChange={(e) => setEditedDepartmentId(e.target.value)}/>
+                  </label> */}
 
 
-                {/* <label>
-                    Edit Role ID:
-                    <input type="number" value={editedRoleId} onChange={(e) => setEditedRoleId(e.target.value)}/>
-                </label> */}
-                <div>
-                  <label htmlFor="editedDeptId">Edit Department:</label>
-                  <select name="editedDeptId"
+                  {/* <label>
+                      Edit Role ID:
+                      <input type="number" value={editedRoleId} onChange={(e) => setEditedRoleId(e.target.value)}/>
+                  </label> */}
+                  <div className="editDeptCont" style={{display: 'flex',flexDirection: 'column',paddingLeft:'0px',marginLeft:'20px'}}>
+                    <label htmlFor="editedDeptId">Department</label>
+                    <select name="editedDeptId"
 
-                  value={editedDepartmentId}
-                  onChange={e => {
-                    setEditedDepartmentId(e.target.value);
-                  }}>
+                    value={editedDepartmentId}
+                    onChange={e => {
+                      setEditedDepartmentId(e.target.value);
+                    }}>
+                      {
+                        departments.map((dept)=>(
+
+                          <option key= {dept.departmentName} value={dept.id}>{dept.departmentName}</option>
+
+                          ))
+                      }
+
+                    </select>
+                </div>
+
+
+                  {/* <label>
+                      Role ID:
+                      <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
+                  </label> */}
+                  <div className="editRoleCont" style={{ display: 'flex',flexDirection: 'column',paddingLeft: '0',marginLeft:'20px'}}>
+                    <label htmlFor="editedRoleId">Role</label>
+                    <select name="editedRoleId"
+
+                    value={editedRoleId}
+                    onChange={e => {
+                      setEditedRoleId(e.target.value);
+                    }}>
+                      {
+                        roles.map((role)=>(
+
+                          <option key= {role.roleName} value={role.id}>{role.roleName}</option>
+
+                          ))
+                      }
+
+                    </select>
+                </div>
+
+
+                  <label className="editEmpFormSalaryLabel">
+                      Salary
+                      <input type="number" value={editedSalary} onChange={(e) => setEditedSalary(e.target.value)}/>
+                  </label>
+
+              <div className="editEmpFormBtnCont">
+              <div className={empEditStatus === "success" ? "successMsg" : empEditStatus === "error" ? "errorMsg" : "hidden"}>
+                {empEditStatus === "success" && "Employee edited successfully!"}
+                {empEditStatus === "error" && "Something went wrong."}
+
+            </div>
+            {/* <div className="errorMsg">
+              Something went wrong.
+            </div> */}
+            {/* <div className="successMsg">
+                Employee edited successfully!
+
+
+            </div> */}
+
+              <button onClick={cancelEditEmp} className="cancel">Cancel</button>
+              <button type="submit">Save</button>
+              </div>
+
+              </div>
+
+
+          </form>
+              ):(
+                  <>
+
+
+                  {/* <div style={{backgroundColor: '#e8eaef'}} className="empLabels">
+                    <span>Name</span>
+                    <span>Salary</span>
+                    <span style={{marginRight:'60px'}}>Actions</span>
+                  </div> */}
+                  <div className="emp" key={emp.id}>
                     {
-                      departments.map((dept)=>(
+                      deletedEmpId === emp.id && (
+                        <div id="deleteEmpEle" className={empDeleteStatus === "success" ? "successMsg" : empDeleteStatus === "error" ? "errorMsg" : "hidden"}>
+                          {empDeleteStatus === "success" && "Employee deleted successfully!"}
+                          {empDeleteStatus === "error" && "Something went wrong."}
 
-                        <option key= {dept.departmentName} value={dept.id}>{dept.departmentName}</option>
-
-                        ))
+                        </div>
+                      )
                     }
+                    <div style={{backgroundColor: '#e8eaef'}} className="empLabels">
+                    <span className="empLabelName">Name</span>
+                    <span style={{marginLeft:'35px'}}>Salary</span>
+                    <span style={{marginRight:'100px'}}>Actions</span>
+                  </div>
+                  <div className="empVals">
+                    <p className="empValName">{emp.employeeName}</p>
+                    <p className="empEditSal" style={{}}>{emp.salary}</p>
+                    <div className="empEditBtnCont">
+                        <button onClick={()=>handleEditClick(emp)}>Edit</button>
+                        <button onClick={()=>handleDeleteClick(emp.id)}>Delete</button>
 
-                  </select>
-              </div>
-
-
-                {/* <label>
-                    Role ID:
-                    <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
-                </label> */}
-                <div>
-                  <label htmlFor="editedRoleId">Edit Role:</label>
-                  <select name="editedRoleId"
-
-                  value={editedRoleId}
-                  onChange={e => {
-                    setEditedRoleId(e.target.value);
-                  }}>
-                    {
-                      roles.map((role)=>(
-
-                        <option key= {role.roleName} value={role.id}>{role.roleName}</option>
-
-                        ))
-                    }
-
-                  </select>
-              </div>
-
-
-                <label>
-                    Edit Salary:
-                    <input type="number" value={editedSalary} onChange={(e) => setEditedSalary(e.target.value)}/>
-                </label>
-
-            <button type="submit">Submit Changes</button>
-
-
-        </form>
-            ):(
-
-                <div className="emp" key={emp.id}>
-                  <p>Employee Name: {emp.employeeName}</p>
-                  <p>Salary: {emp.salary}</p>
-                  <button onClick={()=>handleEditClick(emp)}>Edit</button>
-                  <button onClick={()=>handleDeleteClick(emp.id)}>Delete</button>
-                  <Promote setEmployees={setEmployees} employees={employees} emp={emp}/>
-
-                  {/* <button onClick={()=>handleReviewClick(emp.id)}>Add Review</button> */}
-                  <Review setReviews={setReviews} emp={emp} reviews={reviews} />
+                        <button className="addReviewBtn" onClick={()=>handleReviewClick(emp.id)}>Add Review</button>
+                        <Promote setEmployees={setEmployees} employees={employees} emp={emp} status={promoteStatus} setStatus={setPromoteStatus}/>
+                    </div>
+                    </div>
 
 
 
-              </div>
+                    <Review setEditReviewEmpId={setEditReviewEmpId} editReviewEmpId ={editReviewEmpId} setEditReview={setEditReview} review={review} editReview={editReview} setReviews={setReviews} emp={emp} reviews={reviews} setReview={setReview} />
+
+
+                        {
+                          reviews.length > 0?(
+                            <>
+                              <label className="reviewsHdr">Reviews</label>
+                            <div className="emp-item-2">
+
+                              {
+                                reviews.map((review) => (
+
+                                  review.employeeId === emp.id?(
+                                    <div style={{backgroundColor:'#F3F4F6',marginLeft:'20px'}} className="review" key={review.id}>
+                                    <div style={{display:'flex',backgroundColor:'	#F3F4F6',margin:'0px',padding:'0px',minWidth:'100%',gap:'50px',marginTop:'20px'}}>
+                                      <span>{review.reviewScore} stars</span>
+                                      <span>{review.reviewDate}</span>
+
+                                    </div>
+                                    <div className="reviewComments" style={{backgroundColor:'#F3F4F6',paddingTop:'0px',margin:'0px',padding:'0',textAlign:'left',marginTop:'10px'}}>{review.reviewComments}</div>
+
+                                      <div className="crudReviewBtnCont">
+                                      <button style={{margin:'0px',fontSize:'15px',width:'200px'}} onClick={() => handleReviewEditClick(review)}>Edit Review</button>
+                                      <button style={{margin:'0px',fontSize:'15px',width:'220px',paddingLeft: '0',paddingRight: '0'}} onClick={() => handleReviewDeleteClick(review.id)}>Delete Review</button>
+
+                                      {
+                                        deletedReviewId === review.id && (
+                                          <div style={{position:'absolute',backgroundColor:"green",color:"#fff"}} className={"deleteReviewStatusEle " + (deleteReviewStatus === "success" ? "successMsg" : deleteReviewStatus === "error" ? "errorMsg" : "")
+                                            + (deleteReviewStatus === "" ? "hidden":"")
+                                          }>
+
+                                          {deleteReviewStatus === "success" && "Review successfully deleted!"}
+                                          {deleteReviewStatus === "error" && "Something went wrong."}
+                                          </div>
+                                        )
+                                      }
+
+                                      {/* <div style={{position:'absolute',backgroundColor:"green",color:"#fff"}} className="deleteReviewStatusEle successMsg">
+
+                                          Review successfully deleted!
+                                          </div> */}
+
+                                      {/* <div style={{position:'absolute'}} className="deleteReviewStatusEle  successMsg"
+                                          >
+
+                                          Review successfully deleted!
+
+                                          </div> */}
 
 
 
-            )
-
-          ))}
-      </div>
-      {/* <h2 className="addEmp">Add Employee</h2>
-      <form className="empForm" onSubmit = {handleSubmit}>
-
-                <label>
-                    Employee Name:
-                    <input type="text" value={employeeName}
-                        onChange={(e) => setEmployeeName(e.target.value)}/>
-                </label>
 
 
-                <label>
-                    Department ID:
-                    <input type="number" value={departmentId}
-                        onChange={(e) => setDepartmentId(e.target.value)}/>
-                </label>
+                                      </div>
+
+                                  </div>
+                                  ):null
 
 
-                <label>
-                    Role ID:
-                    <input type="number" value={roleId} onChange={(e) => setRoleId(e.target.value)}/>
-                </label>
+
+                      ))
+                              }
+                            </div>
+                            </>
 
 
-                <label className="salary">
-                    Salary:
-                    <input type="number" value={salary} onChange={(e) => setSalary(e.target.value)}/>
-                </label>
-
-            <button type="submit">Add Employee</button>
+                          ):null
+                        }
 
 
-        </form> */}
-    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                  </>
+
+
+
+
+              )
+
+            ))}
+        </div>
+      ):null
+    }
+
+
+
+
+
+
+
+
+
+    </>
 
 
 
