@@ -22,9 +22,9 @@ function App() {
   const [pim,setPIM] = useState(true);
   const [admin,setAdmin] = useState(false);
   const [audit,setAudit] = useState(false);
-  // const backendUrl = import.meta.env.VITE_RENDER_URL;
+  const backendUrl = import.meta.env.VITE_RENDER_URL;
 
-  const backendUrl = 'http://localhost:8080';
+  // const backendUrl = 'http://localhost:8080';
   console.log('backend url',backendUrl);
 
   const handleAuditPage = (e)=>{

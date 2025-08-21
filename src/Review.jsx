@@ -15,8 +15,8 @@ function Review({ setReviews, emp, reviews,review,setReview,editReview,setEditRe
     const [editedReviewScore, setEditedReviewScore] = useState(0); // Added for edited review score
     const [reviewStatus,setReviewStatus] = useState("")
     const [editReviewStatus,setEditReviewStatus] = useState("")
-    // const backendUrl = import.meta.env.VITE_RENDER_URL;
-    const backendUrl = 'http://localhost:8080';
+    const backendUrl = import.meta.env.VITE_RENDER_URL;
+    // const backendUrl = 'http://localhost:8080';
     console.log('review',review,review === emp.id);
     console.log('editReview',editReview,typeof Number(editReview) === 'number',editReview !== null);
 

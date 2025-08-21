@@ -15,8 +15,8 @@ function Department({setDepartments,departments}){
     const [editStatus,setEditStatus] = useState("");
     const [deleteStatus,setDeleteStatus] = useState("");
     const [deletedDeptId,setDeletedDeptId] = useState(null);
-    // const backendUrl = import.meta.env.VITE_RENDER_URL;
-    const backendUrl = 'http://localhost:8080';
+    const backendUrl = import.meta.env.VITE_RENDER_URL;
+    // const backendUrl = 'http://localhost:8080';
 
     const cancelAddDept = () => {
       setAddDept(false);

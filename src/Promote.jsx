@@ -5,8 +5,8 @@ function Promote({emp,employees,setEmployees,status,setStatus}){
   const [promoteSalary,setPromoteSalary] = useState('')
   const [promoteRole,setPromoteRole] = useState('')
   const [promote,setPromote] = useState('');
-  // const backendUrl = import.meta.env.VITE_RENDER_URL;
-  const backendUrl = 'http://localhost:8080';
+  const backendUrl = import.meta.env.VITE_RENDER_URL;
+  // const backendUrl = 'http://localhost:8080';
   const handlePromoteClick = async(event,emp)=>{
     setPromote(emp.id);
   }
