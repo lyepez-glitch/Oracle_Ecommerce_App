@@ -5408,3 +5408,11 @@ body {
     /* max-width: 80% !important; */
     border-radius: 30px;
 }
+
+#root .editRoleForm {
+    margin-left: 0 !important;
+}
+
+#root .deptsWrapper {
+    margin-top: 100px !important;
+}
